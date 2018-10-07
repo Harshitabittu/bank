@@ -13,6 +13,8 @@ package com.phase2.core.bean.UserInfo;
 			return fName;
 		}
 		
+		
+		
 		public void setlName(String lName) {
 			this.lName = lName;
 		}
