@@ -13,7 +13,7 @@ package com.phase2.core.bean.UserInfo;
 			return fName;
 		}
 		
-		
+		// changes by me 
 		public void setlName(String lName) {
 			this.lName = lName;
 		}
