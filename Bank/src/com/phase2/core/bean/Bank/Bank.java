@@ -7,7 +7,7 @@ public class Bank {
 	System.out.println("Welcome to the Bank");
 	System.out.println("choose appropriate option");
 	System.out.println("1.you are an existing User");
-	System.out.println("2. open an account");
+	System.out.println("2.want to open an account");
 	
 	
 	   int choice =AccountService.readInput();
