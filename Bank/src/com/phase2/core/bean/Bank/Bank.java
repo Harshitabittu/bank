@@ -6,8 +6,10 @@ public class Bank {
 	public static void main(String[] args) {
 	System.out.println("Welcome to the Bank");
 	System.out.println("choose appropriate option");
-	System.out.println("1. existing User");
+	System.out.println("1.you are an existing User");
 	System.out.println("2. open an account");
+	
+	
 	   int choice =AccountService.readInput();
 	switch(choice){
 	   case 1: AccountService.handleExistingUser();
@@ -17,9 +19,6 @@ public class Bank {
 	   default:System.out.println("invalid input");
 	           break;
 				}
-				
-				
-
 			}
 
 		}
