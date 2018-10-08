@@ -9,9 +9,11 @@ import java.util.HashMap;
 
 public class ReadToHashMap {
 
+	 static HashMap<String,AccountDetails>AccountDetailsMap=new HashMap<String,AccountDetails>();
+	
 		  public static HashMap<String,AccountDetails> readMap() {
 			
-			HashMap<String,AccountDetails>AccountDetailsMap=new HashMap<String,AccountDetails>();
+			
 	        
 	        
 	        

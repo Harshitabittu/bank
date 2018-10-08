@@ -1,6 +1,11 @@
 package com.phase2.core.bean.AccountService;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+
 import com.phase2.core.bean.AccountBalance.*;
+import com.phase2.core.bean.AccountDetails.AccountDetails;
 import com.phase2.core.bean.HashMap.*;
 
 	public class AccountService {
@@ -25,6 +30,7 @@ import com.phase2.core.bean.HashMap.*;
 			        System.out.print("enter PASSWORD=");
 			        String P=AccountService.readStrInput();
 
+			        
 		 if(U.equals(ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getUsername())  && P.equals(ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getPassword()))  {
 			
 				          System.out.println("you are logged in");
@@ -120,6 +126,17 @@ import com.phase2.core.bean.HashMap.*;
 			public static void deposit(){
 				System.out.println("enter UserName=");
 				String tmp=AccountService.readStrInput();
+				 Map<String,AccountDetails> detailsMap = ReadToHashMap.readMap();
+				
+				 Set<String> mySet = detailsMap.keySet();
+			Iterator<String> iterator =	mySet.iterator();
+				while (iterator.hasNext()) {
+					String key = iterator.next();
+					System.out.println(key);
+					
+				}
+					
+					
 				  if(tmp.equals( ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getUsername())) {
 			    	System.out.println("enter the amount");
 			    	int amount=AccountService.readInput();
