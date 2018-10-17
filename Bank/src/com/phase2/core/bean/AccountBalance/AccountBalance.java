@@ -12,6 +12,12 @@ public class AccountBalance {
 		public  int getBalance() {
 			return balance;
 		}
+		
+		public AccountBalance() {}
+		public AccountBalance(int balance) {
+			super();
+			this.balance=balance;
+		}
 
 		@Override
 		public String toString() {

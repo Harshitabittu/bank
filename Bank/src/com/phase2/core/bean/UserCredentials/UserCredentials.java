@@ -20,6 +20,13 @@ public class UserCredentials {
 		public String getPassword() {
 			return password;
 		}
+		public UserCredentials() {}
+		
+		public UserCredentials(String userName,String password) {
+			super();
+			this.userName=userName;
+			this.password=password;
+		}
 		
 		@Override
 		public String toString() {

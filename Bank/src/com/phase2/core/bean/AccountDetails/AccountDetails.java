@@ -14,9 +14,9 @@ import com.phase2.core.bean.UserInfo.*;
 		}
 		public AccountDetails(UserInfo userInfo, UserCredentials userCredentials, AccountBalance accountBalance) {
 			super();
-			this.userInfo = userInfo;
+			this.userInfo= userInfo;
 			this.userCredentials = userCredentials;
-			this.accountBalance = accountBalance;
+			this.accountBalance= accountBalance;
 		}
 		public UserInfo getUserInfo() {
 			return userInfo;

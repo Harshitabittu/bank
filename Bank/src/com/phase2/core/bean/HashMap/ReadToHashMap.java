@@ -1,19 +1,21 @@
 package com.phase2.core.bean.HashMap;
 import com.phase2.core.bean.AccountBalance.*;
+
 import java.util.Set;
 import com.phase2.core.bean.AccountDetails.*;
 import com.phase2.core.bean.UserCredentials.*;
 import com.phase2.core.bean.UserInfo.*;
 import java.util.HashMap;
+import com.phase2.core.bean.AccountService.*;
 
 
 public class ReadToHashMap {
 
-	 static HashMap<String,AccountDetails>AccountDetailsMap=new HashMap<String,AccountDetails>();
 	
+	static HashMap<String,AccountDetails>AccountDetailsMap=new HashMap<String,AccountDetails>();
 		  public static HashMap<String,AccountDetails> readMap() {
 			
-			
+
 	        
 	        
 	        
@@ -36,9 +38,12 @@ public class ReadToHashMap {
 	        accountDetails.setAccountBalance(accountBalance);
 
 	        String AccountNum=String.valueOf(Math.random()*1000);
+	        AccountDetails accountDetails1=new AccountDetails(userInfo,userCredentials,accountBalance);
+			   
 
 		
-	         AccountDetailsMap.put("AccountNum",accountDetails);
+	         AccountDetailsMap.put(AccountNum,accountDetails);
+	         AccountDetailsMap.put(AccountNum,accountDetails1);
 	         
 	         return AccountDetailsMap;
 

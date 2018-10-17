@@ -1,12 +1,21 @@
 package com.phase2.core.bean.AccountService;
+
+
+import java.util.HashMap;
 import java.util.Iterator;
+
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import com.phase2.core.bean.AccountBalance.*;
+import com.phase2.core.bean.AccountBalanceIsEmptyException.AccountBalanceIsEmptyException;
 import com.phase2.core.bean.AccountDetails.AccountDetails;
-import com.phase2.core.bean.HashMap.*;
+/*import com.phase2.core.bean.HashMap.ReadToHashMap;*/
+import com.phase2.core.bean.UserInfo.UserInfo;
+import com.phase2.core.bean.UserCredentials.*;
+import com.phase2.core.bean.AccountDetails.*;
 
 	public class AccountService {
 		
@@ -29,9 +38,9 @@ import com.phase2.core.bean.HashMap.*;
 			        String U=AccountService.readStrInput();
 			        System.out.print("enter PASSWORD=");
 			        String P=AccountService.readStrInput();
-
-			        
-		 if(U.equals(ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getUsername())  && P.equals(ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getPassword()))  {
+			       String un= createNewAccount().;
+			       String pw= ReadToHashMap.rea.getUserCredentials().getPassword();
+		 if(U.equals(un)  && P.equals(pw))  {
 			
 				          System.out.println("you are logged in");
 				          System.out.println("choose action");
@@ -62,7 +71,34 @@ import com.phase2.core.bean.HashMap.*;
 			              }while(ch=='y'||ch=='Y');
 			          }
 			public static void createNewAccount(){
-				System.out.println("enter first name=");
+				
+				HashMap<String,AccountDetails>AccountDetailsMap=new HashMap<String,AccountDetails>();
+				UserInfo userInfo=new UserInfo();
+		        userInfo.setfName("harshita");
+		        userInfo.setlName("Singh");
+		        userInfo.setEmail("bhati.harshita987@gmail.com");
+
+
+		        UserCredentials userCredentials=new UserCredentials();
+		        userCredentials.setUsername("bhati.harshita987@gmail.com");
+		        userCredentials.setPassword("harshita_Singh");
+
+		        AccountBalance accountBalance=new AccountBalance();
+		        accountBalance.setBalance(100000);
+
+		        AccountDetails accountDetails=new AccountDetails();
+		        accountDetails.setUserInfo(userInfo);
+		        accountDetails.setUserCredentials(userCredentials);
+		        accountDetails.setAccountBalance(accountBalance);
+
+		        String AccountNum=String.valueOf(Math.random()*1000);
+		        
+				   
+                AccountDetailsMap.put(AccountNum,accountDetails);
+                System.out.println(AccountDetailsMap);
+                
+				HashMap<String,AccountDetails> userMap=new HashMap<String,AccountDetails>();
+                System.out.println("enter first name=");
 				String fName =AccountService.readStrInput();
 				System.out.println("enter last name");
 				String lName=AccountService.readStrInput();
@@ -72,6 +108,41 @@ import com.phase2.core.bean.HashMap.*;
 				
 				String userName = fName+"123";
 				System.out.println("UserName is="+userName);
+				
+			   System.out.println("enter your balance");
+			   int balance=AccountService.readInput();
+			   System.out.println("your current balance is "+balance);
+			   
+			   System.out.println("enter your mail id");
+			   String email=AccountService.readStrInput();
+			   
+			   String AccountNum1=String.valueOf(Math.random()*1000);
+			   System.out.println("your account no is"+AccountNum1);
+			   UserInfo userInfo1=new UserInfo(fName,lName,email);
+			   UserCredentials userCredentials1=new UserCredentials(userName,password);
+			   AccountBalance accountBalance1=new AccountBalance(balance);
+			   AccountDetails accountDetails1=new AccountDetails(userInfo1,userCredentials1,accountBalance1);
+			   userMap.put(AccountNum1,accountDetails1);
+			  
+			   
+			   AccountDetailsMap.putAll(userMap);
+			   
+			   
+			   Set s1=AccountDetailsMap.entrySet();
+				Iterator itr=s1.iterator();
+				while(itr.hasNext()) {
+					Map.Entry m1=(Entry) itr.next();
+					System.out.println(m1.getKey()+"   "+m1.getValue());
+						
+					
+				}
+				
+			   
+			   
+			   
+			   AccountService.handleExistingUser();
+			  
+			   
 				
 			   
 				
@@ -97,7 +168,7 @@ import com.phase2.core.bean.HashMap.*;
 				String tmp=AccountService.readStrInput();
 		        if(tmp.equals( ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getUsername())) {
 		        	if(ReadToHashMap.readMap().get("AccountNum").getAccountBalance().getBalance()==0) {
-		        		System.out.println("your account is empty");}
+		        		throw new AccountBalanceIsEmptyException("Sorry");}
 		        	else{
 		        		System.out.println("enter the amount");
 		        		int amt1=AccountService.readInput();

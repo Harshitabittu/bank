@@ -28,7 +28,15 @@ package com.phase2.core.bean.UserInfo;
 			return email;
 		}
 		
+		public UserInfo() {}
 		
+		public UserInfo(String fName,String lName,String email) {
+			super();
+			this.fName=fName;
+			this.lName=lName;
+			this.email=email;
+			
+		}
 		@Override
 		public String toString() {
 			return "UserInfo [fName=" + fName + ", lName=" + lName + ", email=" + email + "]";
