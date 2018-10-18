@@ -12,12 +12,15 @@ import java.util.Map.Entry;
 import com.phase2.core.bean.AccountBalance.*;
 import com.phase2.core.bean.AccountBalanceIsEmptyException.AccountBalanceIsEmptyException;
 import com.phase2.core.bean.AccountDetails.AccountDetails;
+import com.phase2.core.bean.InvalidUserException.InvalidUserException;
 /*import com.phase2.core.bean.HashMap.ReadToHashMap;*/
 import com.phase2.core.bean.UserInfo.UserInfo;
 import com.phase2.core.bean.UserCredentials.*;
 import com.phase2.core.bean.AccountDetails.*;
 
 	public class AccountService {
+		
+		static HashMap<String,AccountDetails> AccountDetailsMap=new HashMap<String,AccountDetails>();
 		
 		public static int readInput(){
 	    Scanner scanInt=new Scanner(System.in);
@@ -31,46 +34,8 @@ import com.phase2.core.bean.AccountDetails.*;
 
 			 
 
-		public static void handleExistingUser(){
-	char ch = ' ';
-			 do {
-				    System.out.print("enter USERNAME=");
-			        String U=AccountService.readStrInput();
-			        System.out.print("enter PASSWORD=");
-			        String P=AccountService.readStrInput();
-			       String un= createNewAccount().;
-			       String pw= ReadToHashMap.rea.getUserCredentials().getPassword();
-		 if(U.equals(un)  && P.equals(pw))  {
-			
-				          System.out.println("you are logged in");
-				          System.out.println("choose action");
-				          System.out.println("1.withdraw");
-				          System.out.println("2.deposit");
-				          System.out.println("3.close account");
-				          int choice =AccountService.readInput();
-				          
-
-				         switch(choice){
-		                         case 1:AccountService.withdraw();
-		                                 break;
-		                         case 2:AccountService.deposit();
-		                                 break;  
-		                         case 3:AccountService.close();
-		                                 break;
-		                         default:System.out.println("Invalid Input");}
-			              }
-			        else{
-			
-			              System.out.println("incorrect username password");
-			              System.out.println("want to reenter type yes or no");
-			              Scanner s=new Scanner(System.in);
-			             
-			              ch=s.next().charAt(0);
-			              }
-
-			              }while(ch=='y'||ch=='Y');
-			          }
-			public static void createNewAccount(){
+	
+			public static HashMap<String,AccountDetails> createNewAccount(){
 				
 				HashMap<String,AccountDetails>AccountDetailsMap=new HashMap<String,AccountDetails>();
 				UserInfo userInfo=new UserInfo();
@@ -95,7 +60,7 @@ import com.phase2.core.bean.AccountDetails.*;
 		        
 				   
                 AccountDetailsMap.put(AccountNum,accountDetails);
-                System.out.println(AccountDetailsMap);
+               /* System.out.println(AccountDetailsMap);*/
                 
 				HashMap<String,AccountDetails> userMap=new HashMap<String,AccountDetails>();
                 System.out.println("enter first name=");
@@ -132,25 +97,61 @@ import com.phase2.core.bean.AccountDetails.*;
 				Iterator itr=s1.iterator();
 				while(itr.hasNext()) {
 					Map.Entry m1=(Entry) itr.next();
-					System.out.println(m1.getKey()+"   "+m1.getValue());
+					/*System.out.println(m1.getKey()+"   "+m1.getValue());*/
 						
 					
 				}
-				
-			   
-			   
-			   
-			   AccountService.handleExistingUser();
-			  
-			   
-				
-			   
-				
+				 return AccountDetailsMap;
 			    }
 				
+			public static void handleExistingUser(){
+				char ch = ' ';
+						 
+							    System.out.print("Enter Account Number");
+						        String aN=AccountService.readStrInput();
+						       
+					   AccountDetails accountDetail    = AccountDetailsMap.get("AccountNum");
+					   if(AccountDetailsMap.containsKey(accountDetail)) {
+						   System.out.println("User Exists");
+						   System.out.println("Enter Username");
+						   String un=AccountService.readStrInput();
+						   System.out.println("Enter Password");
+						   String pw=AccountService.readStrInput();
+						   String U=AccountDetailsMap.get("AccountNum").getUserCredentials().getUsername();
+						   String P=AccountDetailsMap.get("AccountNum").getUserCredentials().getPassword();
+						   
+						   if(un.equals(U)  && pw.equals(P))  {
+								
+						          System.out.println("you are logged in");
+						          System.out.println("choose action");
+						          System.out.println("1.withdraw");
+						          System.out.println("2.deposit");
+						          System.out.println("3.close account");
+						          int choice =AccountService.readInput();
+						          
 
+						         switch(choice){
+				                         case 1:AccountService.withdraw();
+				                                 break;
+				                         case 2:AccountService.deposit();
+				                                 break;  
+				                         case 3:AccountService.close();
+				                                 break;
+				                         default:System.out.println("Invalid Input");}}
+					              
+					        else{
+					
+					              System.out.println("incorrect username password");
+					        }} 
+					          
+					   else {
+						   throw new InvalidUserException();
+					   }}
+					   
+						       
+					
 			public static int withdraw(int amt){
-				int Balance=ReadToHashMap.readMap().get("AccountNum").getAccountBalance().getBalance()-amt;
+				int Balance=createNewAccount().get("AccountNum").getAccountBalance().getBalance()-amt;
 				return Balance;
 				
 			}
@@ -158,22 +159,20 @@ import com.phase2.core.bean.AccountDetails.*;
 		
 			
 			public static int deposit(int amount){
-				int balance=ReadToHashMap.readMap().get("AccountNum").getAccountBalance().getBalance()+amount;
+				int balance=createNewAccount().get("AccountNum").getAccountBalance().getBalance()+amount;
 				return balance;
 			}
 			
 			
 			public static void withdraw(){
-				System.out.println("enter UserName");
-				String tmp=AccountService.readStrInput();
-		        if(tmp.equals( ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getUsername())) {
-		        	if(ReadToHashMap.readMap().get("AccountNum").getAccountBalance().getBalance()==0) {
+				
+		        	if(createNewAccount().get("AccountNum").getAccountBalance().getBalance()==0) {
 		        		throw new AccountBalanceIsEmptyException("Sorry");}
 		        	else{
 		        		System.out.println("enter the amount");
 		        		int amt1=AccountService.readInput();
 
-		        	    if(amt1>ReadToHashMap.readMap().get("AccountNum").getAccountBalance().getBalance()){
+		        	    if(amt1>createNewAccount().get("AccountNum").getAccountBalance().getBalance()){
 		        			System.out.println("enter valid amount");
 		        			int amt2 =AccountService.readInput();
 		        			int cb=AccountService.withdraw(amt2);
@@ -188,45 +187,23 @@ import com.phase2.core.bean.AccountDetails.*;
 		        			System.out.println("your current balance is="+cb);
 		        		
 		        	}}}
-		       else 
-		             {System.out.println("wrong Username");}
-
-		        }
+		       
 			
 		        
 			public static void deposit(){
-				System.out.println("enter UserName=");
-				String tmp=AccountService.readStrInput();
-				 Map<String,AccountDetails> detailsMap = ReadToHashMap.readMap();
 				
-				 Set<String> mySet = detailsMap.keySet();
-			Iterator<String> iterator =	mySet.iterator();
-				while (iterator.hasNext()) {
-					String key = iterator.next();
-					System.out.println(key);
-					
-				}
-					
-					
-				  if(tmp.equals( ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getUsername())) {
 			    	System.out.println("enter the amount");
 			    	int amount=AccountService.readInput();
 			    	int dp=deposit(amount);
 			    	System.out.println("successfully deposited");
 			    	System.out.println("your current balance is="+dp);}
-			    	else{
-			    		System.out.println("wrong UserName");;
-			    	}
+			    	
 
-			}
+			
 			public static void close(){
-				System.out.println("enter Username");
-				String temp=AccountService.readStrInput();
-				 if(temp.equals( ReadToHashMap.readMap().get("AccountNum").getUserCredentials().getUsername())) {
+				
 					System.out.println("your acc has been  closed");}
-					else{
-						System.out.println("wrong Username");
-					}}
+					
 			}
 
 			
